@@ -1,0 +1,30 @@
+{
+  "schemaVersion": 1,
+  "id": "pvpoverlay",
+  "version": "2.0.0",
+  "name": "SilverVisualistic",
+  "description": "SilverVisualistic client enhancements for Minecraft 1.21.4, including built-in HitFeedback and SilverVisible integration.",
+  "icon": "assets/pvpoverlay/icon.png",
+  "environment": "client",
+  "authors": [
+    "Imperos"
+  ],
+  "entrypoints": {
+    "client": [
+      "ru.pvpoverlay.PvPOverlayClient"
+    ],
+    "modmenu": [
+      "ru.pvpoverlay.PvPOverlayModMenu"
+    ]
+  },
+  "depends": {
+    "fabricloader": ">=0.16.9",
+    "minecraft": "1.21.4",
+    "java": ">=21",
+    "fabric-api": "*",
+    "modmenu": ">=13.0.0"
+  },
+  "mixins": [
+    "pvpoverlay.mixins.json"
+  ]
+}
