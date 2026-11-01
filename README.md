@@ -51,6 +51,7 @@ The remapped mod JAR is written to `build/libs/`.
 
 Dependencies: Fabric Loader, Fabric API, Mod Menu 13.0.4. No SoupAPI, SoupVisuals, or standalone HitFeedback dependency is required.
 
-## GitHub build and releases
 
-This repository includes a GitHub Actions workflow at `.github/workflows/build-and-release.yml`. It builds on pushes to `main`/`master`; pushing a tag such as `v2.0.0` builds the mod and creates a GitHub Release with the remapped JAR and source ZIP. See `RELEASE_CHECKLIST_RU.md` for the first-time repository and SilverVisible webhook setup. Do not publish a release until the local build and Minecraft smoke test pass.
+### Source revision 3
+
+Includes a networking fix for SilverVisible login. This is a source update for testing, not a published official release.

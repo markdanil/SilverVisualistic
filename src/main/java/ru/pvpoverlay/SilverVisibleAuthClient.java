@@ -27,8 +27,11 @@ public final class SilverVisibleAuthClient {
         thread.setDaemon(true);
         return thread;
     });
+    // Keep HttpClient's internal work off the single-thread auth task executor.
+    // login()/verify()/logout() call synchronous HTTP.send() from EXECUTOR; sharing
+    // that executor with HttpClient can starve its own response/body processing.
     private static final HttpClient HTTP = HttpClient.newBuilder()
-            .executor(EXECUTOR).connectTimeout(Duration.ofSeconds(6)).build();
+            .connectTimeout(Duration.ofSeconds(6)).build();
 
     private SilverVisibleAuthClient() { }
 
@@ -95,7 +98,7 @@ public final class SilverVisibleAuthClient {
                 System.err.println("[SilverVisualistic] Не удалось завершить сессию SilverVisible на сервере: " + error.getMessage());
             } finally {
                 if (forgetLocally) SilverVisibleProfileStore.remove(profile.login);
-                dispatch(callback);
+                dispatch(callback, null);
             }
         });
     }
@@ -163,12 +166,6 @@ public final class SilverVisibleAuthClient {
     private static void dispatch(Consumer<Result> callback, Result result) {
         MinecraftClient client = MinecraftClient.getInstance();
         client.execute(() -> callback.accept(result));
-    }
-
-    private static void dispatch(Runnable callback) {
-        if (callback == null) return;
-        MinecraftClient client = MinecraftClient.getInstance();
-        client.execute(callback);
     }
 
     public record Result(boolean success, SilverVisibleProfileStore.Profile profile, String message) {

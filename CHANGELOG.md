@@ -1,5 +1,10 @@
 # Changelog
 
+## Source revision 3 (2.0.0)
+- Fixed SilverVisible authentication networking: HttpClient no longer shares the single-thread executor that runs synchronous authentication requests.
+
+# Changelog
+
 ## SilverVisualistic 2.0.0 — integration revision
 
 ### Added
